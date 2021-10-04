@@ -17,6 +17,8 @@ import {
   TabWrapper,
   Tab,
   PoolTitleContainer,
+  UpcomingPoolsWrapper,
+  NewText,
   StakedOnlyToggleWrapper,
   StakedOnlyToggle,
   StakedOnlyToggleText,
@@ -28,12 +30,13 @@ import { useSelector } from 'react-redux'
 import { AppState } from 'state'
 import YieldPools from 'components/YieldPools'
 import RewardTokenPrices from 'components/RewardTokenPrices'
+import UpcomingPools from 'components/UpcomingPools'
 
 const Farms = () => {
   const { chainId } = useActiveWeb3React()
   const blockNumber = useBlockNumber()
   const { loading, data: farms } = useFarmsData()
-  const [activeTab, setActiveTab] = useState(0)
+  const [activeTab, setActiveTab] = useState(2)
   const [stakedOnly, setStakedOnly] = useState(false)
   const toggleFarmHistoryModal = useFarmHistoryModalToggle()
   const vestingLoading = useSelector<AppState, boolean>(state => state.vesting.loading)
@@ -65,6 +68,10 @@ const Farms = () => {
       }
     })
 
+  const renderTabContent = () => {
+    return activeTab === 0 ? <YieldPools stakedOnly={stakedOnly} /> : activeTab === 1 ? <Vesting /> : <UpcomingPools />
+  }
+
   return (
     <>
       <PageWrapper>
@@ -94,6 +101,14 @@ const Farms = () => {
                 {vestingLoading && <Loader />}
               </PoolTitleContainer>
             </Tab>
+            <Tab onClick={() => setActiveTab(2)} isActive={activeTab === 2}>
+              <UpcomingPoolsWrapper>
+                <Trans>Upcoming Pools</Trans>
+                <NewText>
+                  <Trans>New</Trans>
+                </NewText>
+              </UpcomingPoolsWrapper>
+            </Tab>
             {activeTab === 0 && (
               <StakedOnlyToggleWrapper>
                 <StakedOnlyToggle
@@ -109,7 +124,7 @@ const Farms = () => {
           </TabWrapper>
         </TabContainer>
 
-        {activeTab === 0 ? <YieldPools stakedOnly={stakedOnly} /> : <Vesting />}
+        {renderTabContent()}
       </PageWrapper>
       <FarmHistoryModal farms={farmsList} />
       <SwitchLocaleLink />

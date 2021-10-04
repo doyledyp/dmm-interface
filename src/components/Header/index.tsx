@@ -261,20 +261,6 @@ const StyledNavExternalLink = styled(ExternalLink).attrs({
   `}
 `
 
-const YieldMenuWrapper = styled.div`
-  position: relative;
-  padding: 10px 16px 10px 0;
-`
-
-const NewText = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 10px;
-  font-weight: 500;
-  color: #ff537b;
-`
-
 const getPoolsMenuLink = (chainId?: ChainId) => {
   switch (chainId) {
     case ChainId.MAINNET:
@@ -331,12 +317,7 @@ export default function Header() {
           </StyledNavLink>
 
           <StyledNavLink id={`farms-nav-link`} to={'/farms'} isActive={match => Boolean(match)}>
-            <YieldMenuWrapper>
-              <Trans>Yield</Trans>
-              <NewText>
-                <Trans>New</Trans>
-              </NewText>
-            </YieldMenuWrapper>
+            <Trans>Yield</Trans>
           </StyledNavLink>
 
           <HideSmall>

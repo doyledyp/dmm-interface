@@ -82,6 +82,20 @@ export const PoolTitleContainer = styled.div`
   align-items: center;
 `
 
+export const UpcomingPoolsWrapper = styled.div`
+  position: relative;
+  padding: 8px 16px 8px 0;
+`
+
+export const NewText = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 10px;
+  font-weight: 500;
+  color: #ff537b;
+`
+
 export const StakedOnlyToggleWrapper = styled.div`
   display: flex;
   align-items: center;
